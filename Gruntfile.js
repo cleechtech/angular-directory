@@ -1,11 +1,8 @@
 module.exports = function(grunt){
 	
 	// so we don't have to do grunt.loadNpmTasks('taskName') for every dependency
-	// require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
-    
-    
-    // grunt.loadNpmTasks('grunt-bower-install');
-    
+	require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
+        
     grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		
@@ -15,8 +12,8 @@ module.exports = function(grunt){
 				tasks: ['htmlhint']
 			},
 			js: {
-				files: [],
-				tasks: []
+				files: ['./client/js/*.js'],
+				tasks: ['clean', 'jshint', 'concat', 'uglify', 'copy']
 			}
 		},
 		
@@ -38,23 +35,9 @@ module.exports = function(grunt){
 			}
 		},
 		
-		//~ 'bower-install': {
-			//~ target: {
-				//~ // Point to the files that should be updated when
-				//~ // you run `grunt bower-install`
-				//~ src: ['./client/index.html'],
-//~ 
-				//~ // Optional:
-				//~ // ---------
-				//~ cwd: '',
-				//~ ignorePath: '',
-				//~ exclude: [],
-				//~ fileTypes: {}
-			//~ }
-		//~ }
-		});
+
+	});
 		
-		grunt.loadNpmTasks('grunt-contrib-uglify');
-		grunt.registerTask('default', ['uglify']);
+	grunt.registerTask('default', ['uglify']);
 
 };
